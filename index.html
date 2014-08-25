@@ -1,0 +1,56 @@
+﻿<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bracket/Parenthesis Validator</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+	
+	<div id="header">
+		<h1>Bracket Validator</h1>
+	</div>
+	<div id="content">
+		<button>Validate</button> <span id="result"></span>
+		<textarea></textarea>
+	</div>
+	<div id="footer">
+			by <a href="http://mnrd.net">guillaumeménard</a>
+	</div>
+	
+	<script src="lib/jquery-2.1.1.min.js"></script>
+	<script src="js/validator.js"></script>
+	<script>
+		$('button').click(function() {
+			var content = $('textarea').val();
+			var result = $('#result');
+			var textarea = $('textarea');
+			$(textarea).removeClass();
+
+			if(content != '') {
+				var error = validator(content);
+				
+				if(error != null) {
+					$(result).text('Error at Row:' + error.row + ' Column: ' + error.col + '.');
+					$(textarea).addClass('alert');
+				}
+				else {
+					$(result).text('Validation successful.');
+					$(textarea).addClass('success');
+				}
+			}
+			else {
+				$(result).text('Please insert your input below:');
+			}
+		});
+	</script>
+</body>
+</html>

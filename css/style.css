@@ -1,0 +1,49 @@
+html,
+body {
+	margin:0;
+	padding:0;
+}
+
+h1 {
+	width:100%;
+	text-align:center;
+}
+
+#content {
+	padding:1em;
+}
+#footer {
+	width:100%;
+	text-align:center;
+}
+
+textarea {
+    width: 100%;
+    height: 30em;
+}
+
+button {
+	background-color: LightSeaGreen;
+	color:white;
+	border: none;
+	margin-bottom:.3em;
+	padding: .4em 1em .4em 1em;
+	font-size: 1em;
+}
+
+button:hover {
+	background-color: LightSteelBlue;
+}
+
+a {
+	color: Green;
+	text-decoration: none;
+}
+
+.alert {
+	background-color:LightCoral;
+}
+
+.success {
+	background-color:LightGreen;
+}
