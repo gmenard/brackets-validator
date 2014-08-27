@@ -1,8 +1,7 @@
 var bracketsMap = { 
 	'(' : ')', 
 	'{' : '}', 
-	'[' : ']',
-	'<' : '>'
+	'[' : ']'
 };
 	
 var openings = Object.keys(bracketsMap);
