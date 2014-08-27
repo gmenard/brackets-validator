@@ -1,7 +1,7 @@
 Brackets Validator
 =====================
 
-Simple, lightweight, JS-based tool to validate if the parentheses ( ), curly braces { }, square brackets [ ] and/or angle brackets < > in a text are properly written.
+Simple, lightweight, JS-based tool to validate if the parentheses ( ), curly braces { } and/or square brackets [ ] in a text are properly written.
 
 
 [Live here](http://brackets-validator.mnrd.net/)
