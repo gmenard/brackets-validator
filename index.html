@@ -1,55 +1,92 @@
-﻿<!doctype html>
+<!doctype html>
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
 
-  <title>Bracket/Parenthesis Validator</title>
+	<title>Online Bracket Validator</title>
+  
+	<link rel="icon" type="image/png" href="img/brackets.png" />
+	
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="libs/jquery-linedtextarea.css">
 
-  <link rel="stylesheet" href="css/style.css">
-
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 </head>
 
 <body>
 	
+	<a href="https://github.com/gmenard/parentheses-validator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 	<div id="header">
-		<h1>Bracket Validator</h1>
+		Bracket Validator
 	</div>
+
 	<div id="content">
-		<button>Validate</button> <span id="result"></span>
-		<textarea></textarea>
+		<p>Validate if the parentheses <span class="strong">( )</span>, curly braces <span class="strong">{ }</span>, square brackets <span class="strong">[ ]</span> or angle brackets <span class="strong">&lt; &gt;</span> in your code or text are properly written.</p>
+		
+		<div id="validator">
+			<button>Validate</button>
+			<div id="result"></div>
+			<textarea></textarea>
+			<div id="text-info">
+				<div class="floatleft">
+					Total Lines: <span class="total_lines">0</span> | 
+					Length: <span class="total_chars">0</span>
+				</div>
+				<div class="floatright">
+					Row <span class="ptr_row">0</span> : Col <span class="ptr_col">0</span>
+				</div>
+			</div>
+		</div>
 	</div>
+
 	<div id="footer">
 			by <a href="http://mnrd.net">guillaumeménard</a>
 	</div>
-	
-	<script src="lib/jquery-2.1.1.min.js"></script>
+
+	<script src="libs/jquery-2.1.1.min.js"></script>
+	<script src="libs/jquery-linedtextarea.js"></script>
+	<script src="js/getcaret.js"></script>
 	<script src="js/validator.js"></script>
-	<script>
+	<script>		
 		$('button').click(function() {
 			var content = $('textarea').val();
 			var result = $('#result');
 			var textarea = $('textarea');
-			$(textarea).removeClass();
+			$(result).removeClass();
 
 			if(content != '') {
 				var error = validator(content);
 				
 				if(error != null) {
-					$(result).text('Error at Row:' + error.row + ' Column: ' + error.col + '.');
-					$(textarea).addClass('alert');
+					$(result).text('Validation Failed');
+					if(error.pos != $(textarea).val().length)
+						$(result).append(' (hint: row ' + error.row + ', col ' + error.col + ')');
+					
+					$(result).addClass('alert');
 				}
 				else {
-					$(result).text('Validation successful.');
-					$(textarea).addClass('success');
+					$(result).text('Validation Successful');
+					$(result).addClass('success');
 				}
 			}
 			else {
-				$(result).text('Please insert your input below:');
+				$(result).text('Empty Input');
+				$(result).addClass('alert');
 			}
+		});
+		
+		$('textarea').linedtextarea();
+		
+		$('textarea').on('click keyup', function() {
+			$('.total_lines').text($(this).val().split("\n").length);
+			$('.total_chars').text($(this).val().length);
+			
+			var lines = $(this).val().substring(0, getCaretPosition($(this).get(0))).split("\n");
+			$('.ptr_row').text(lines.length);
+			$('.ptr_col').text(lines[lines.length - 1].length + 1);
 		});
 	</script>
 </body>

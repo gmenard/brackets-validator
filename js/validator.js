@@ -1,7 +1,8 @@
 var bracketsMap = { 
 	'(' : ')', 
 	'{' : '}', 
-	'[' : ']'
+	'[' : ']',
+	'<' : '>'
 };
 	
 var openings = Object.keys(bracketsMap);
@@ -20,6 +21,7 @@ function validator(content) {
 		else if ($.inArray(content[i], endings) != -1) {
 			if(bracketsMap[stack.pop()] != content[i]) {
 				return {
+					pos : i,
 					row : currentRow,
 					col : currentCol
 				};
@@ -35,6 +37,7 @@ function validator(content) {
 	
 	if(stack.length > 0) {
 		return {
+			pos : i,
 			row : currentRow,
 			col : currentCol
 		};
